@@ -10,11 +10,13 @@ import (
 	"github.com/winey-dev/go-errors/codes"
 )
 
-func RepositoryGetUser() (any, error) {
-	var sqlError = &mysql.MySQLError{Number: 1062, Message: "Duplicate entry 'mss131' for key 'PRIMARY'"}
-	// row , sqlError := db.Query("SELECT * FROM user")
+func InsertExec() error {
+	return &mysql.MySQLError{Number: 1062, Message: "Duplicate entry 'mss131' for key 'PRIMARY'"}
+}
 
-	return nil, errors.Wrapf(errors.SQLError(sqlError), "Query() failed. nf=%s", "mss131")
+func RepositoryGetUser() (any, error) {
+	err := InsertExec()
+	return nil, errors.Wrapf(errors.SQLError(err), "insert exec failed. nf=%s", "mss131")
 	//return nil, errors.SQLErrorf(sqlError, "Query() failed. nf=%s err=%v", "mss131", sqlError)
 	//return nil, errors.SQLError(sqlError)
 }
